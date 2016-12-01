@@ -4,6 +4,5 @@ body {
   padding: 0;
 }
 #foo {
-  border-color: #000;
-  border-style: solid;
+  border: 1px solid #000;
 }

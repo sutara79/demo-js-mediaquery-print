@@ -1,22 +1,23 @@
 /**
- * 途中からスライドダウンするグローバルナビの動きを設定する
- */
-var setGlobalnaviThin = function() {
-  var gnav_thin = $('.globalnavi-thin');
-  var gnav_orig = $('.globalnavi-original');
-  var change_line = gnav_orig.height() + gnav_orig.offset().top + 100; // オリジナルの下端に、100pxの余裕を追加
-  $(window).scroll(function () {
-    var winTop = $(this).scrollTop();
-    if (winTop > change_line) {
-      gnav_thin.slideDown(250);
-    } else {
-      gnav_thin.slideUp(200);
-    }
-  });
-};
-/**
- * ページ読み込み後に実行する
+ * 枠線を太くする
  */
 $(function() {
-  setGlobalnaviThin();
+  var beforePrint = function() {
+    $('#foo').css('border-width', '20px');
+  };
+  var afterPrint = function() {
+    $('#foo').css('border-width', '');
+  };
+  if (window.matchMedia) {
+    var mediaQueryList = window.matchMedia('print');
+    mediaQueryList.addListener(function(mql) {
+      if (mql.matches) {
+        beforePrint();
+      } else {
+        afterPrint();
+      }
+    });
+  }
+  window.onbeforeprint = beforePrint;
+  window.onafterprint = afterPrint;
 });
